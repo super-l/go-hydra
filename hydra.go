@@ -6,21 +6,21 @@ import (
 )
 
 type Hydra struct {
-	Protocol connectors.IProtocol
-	LoginBase []string
+	Protocol     connectors.IProtocol
+	LoginBase    []string
 	PasswordBase []string
-	Founded map[string]string
+	Founded      map[string]string
 }
 
 const (
 	PROTOCOL_FTP = "ftp"
 )
 
-func New(login, password []string, protocol string) (*Hydra, error) {
+func New(login, password []string, protocol, address, port string) (*Hydra, error) {
 	var prot connectors.IProtocol
 	switch protocol {
 	case PROTOCOL_FTP:
-		prot = ftp.Create()
+		prot = ftp.Create(address, port)
 	}
 	instance := Hydra{prot, login, password, make(map[string]string)}
 	return &instance, nil
