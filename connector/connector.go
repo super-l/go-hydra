@@ -1,4 +1,4 @@
-package connectors
+package connector
 
 type IProtocol interface {
 	// Check login password
