@@ -18,7 +18,8 @@ func (p *RedisProtocol) Try() bool {
 }
 
 func (p RedisProtocol) Check(login, password string) bool {
-	c, err := radix.Dial("tcp", "localhost:6379", radix.DialAuthPass(password))
+	c, err := radix.Dial("tcp", p.dst, radix.DialAuthPass(password))
+
 	if err != nil {
 		//fmt.Println(err)
 		return false
@@ -35,28 +36,12 @@ func (p RedisProtocol) Check(login, password string) bool {
 		return true
 	}
 	return false
-	//
-	//client := redis.NewClient(&redis.Options{
-	//	Addr:     p.dst,
-	//	Password: password,
-	//	DB:       0, // use default DB
-	//})
-	//defer client.Close()
-	//
-	//pong, err := client.Ping().Result()
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return false
-	//}
-	//fmt.Println(pong)
-	//fmt.Printf("[Hydra][redis] host: %s password: %s\n", p.dst, password)
-	//return true
 }
 
 func Create(address, port string) *RedisProtocol {
 	var dst string
 	if port == "0" {
-		dst = address + ":3679"
+		dst = address + ":6379"
 	} else {
 		dst = address + ":" + port
 	}
