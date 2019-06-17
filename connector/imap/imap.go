@@ -21,7 +21,7 @@ func (p *ImapProtocol) Connect() bool {
 }
 
 func (p *ImapProtocol) close() {
-	_=p.client.Close()
+	_ = p.client.Close()
 	p.client = nil
 }
 
@@ -34,10 +34,10 @@ func (p *ImapProtocol) Try() bool {
 }
 
 func (p ImapProtocol) Check(login, password string) bool {
-	fmt.Println("Checking for ", login, " : ", password)
+	//fmt.Println("Checking for ", login, " : ", password)
 	if p.Connect() {
 		if err := p.client.Login(login, password); err == nil {
-			_=p.client.Logout()
+			_ = p.client.Logout()
 			p.close()
 			fmt.Printf("[Hydra][imap] host: %s login: %s password: %s\n", p.dst, login, password)
 			return false

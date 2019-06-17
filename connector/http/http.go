@@ -25,7 +25,7 @@ func (p *HttpProtocol) Try() bool {
 
 func (p HttpProtocol) Check(login, password string) bool {
 	//fmt.Printf("Checking %s:%s\n", login, password)
-	client := &http.Client{Timeout:3*time.Second}
+	client := &http.Client{Timeout: 3 * time.Second}
 	req, err := http.NewRequest("GET", p.address, nil)
 	req.SetBasicAuth(login, password)
 	resp, err := client.Do(req)
@@ -39,5 +39,5 @@ func (p HttpProtocol) Check(login, password string) bool {
 }
 
 func Create(address string) *HttpProtocol {
-	return &HttpProtocol{address:address}
+	return &HttpProtocol{address: address}
 }
